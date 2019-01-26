@@ -8,6 +8,7 @@ public class Frame extends Group {
     private static double WIRE_RADIUS = 1.0;
 
     public Frame(double boxDimension, int boxNumX, int boxNumY, int boxNumZ) {
+        // TODO add material to arguments
         getChildren().add(createFrame(boxDimension, boxNumX, boxNumY, boxNumZ));
     }
 
@@ -24,7 +25,7 @@ public class Frame extends Group {
         for(int i =0; i <= boxNumWidth; i++){
             Cylinder c = new Cylinder(WIRE_RADIUS, boxDimension * boxNumHeight);
             //c.setMaterial(material);
-            c.setTranslateX(tx);
+            c.setTranslateX(c.getTranslateX() + tx);
             res.getChildren().add(c);
             tx += boxDimension;
         }
@@ -33,8 +34,8 @@ public class Frame extends Group {
             Cylinder c = new Cylinder(WIRE_RADIUS, boxDimension * boxNumWidth);
             //c.setMaterial(material);
             c.setRotate(-90);
-            c.setTranslateX(c.getBoundsInLocal().getHeight()/2);
-            c.setTranslateY(-boxDimension*boxNumHeight/2 + ty);
+            c.setTranslateX(c.getTranslateX() + c.getBoundsInLocal().getHeight()/2);
+            c.setTranslateY(c.getTranslateY() - boxDimension*boxNumHeight/2 + ty);
             res.getChildren().add(c);
             ty += boxDimension;
         }
@@ -58,11 +59,10 @@ public class Frame extends Group {
         r2.setPivotY(side2.getBoundsInLocal().getMinY() + WIRE_RADIUS);
         r2.setPivotZ(side2.getBoundsInLocal().getMinZ() + WIRE_RADIUS);
         side2.getTransforms().add(r2);
-        System.out.println(side2.getBoundsInParent());
 
         Group side3 = createSide(boxDimension, boxNumZ, boxNumY);
         side3.getTransforms().add(r1);
-        side3.setTranslateX(boxNumX * boxDimension);
+        side3.setTranslateX(side3.getTranslateX() + boxNumX * boxDimension);
 
         Group side4 = createSide(boxDimension, boxNumX, boxNumZ);
         side4.getTransforms().add(r2);
