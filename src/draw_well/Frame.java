@@ -5,7 +5,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Rotate;
 
 public class Frame extends Group {
-    private static double WIRE_RADIUS = 1.0;
+    public static double WIRE_RADIUS = 1.0;
 
     public Frame(double boxDimension, int boxNumX, int boxNumY, int boxNumZ) {
         // TODO add material to arguments
