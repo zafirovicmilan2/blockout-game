@@ -4,11 +4,12 @@ import geometry.Geometry;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.shape.Box;
+import javafx.scene.transform.Rotate;
 
 import java.util.Random;
 
 public class Figure extends Group {
-
+    // TODO add material to Figure
     private Box[] boxes;
     private double boxDimension;
     private Point3D[] randomTranslations = null;
@@ -51,5 +52,37 @@ public class Figure extends Group {
         }
 
         return randomTranslations[randomGenerator.nextInt(6)];
+    }
+
+    private double getMiddleForRotation(double minBound, double maxBound){
+        int num = (int) ((maxBound - minBound)/boxDimension);
+        if (num%2 == 0) {
+            return boxDimension*(num/2 - 1/2);
+        }else
+            return (maxBound - minBound)/2;
+    }
+
+    private Point3D getRotationPivot(Point3D axis){
+        // TODO check if axis != (X_AXIS or Y_AXIS or Z_AXIS)
+        double x = 0.0, y = 0.0, z = 0.0;
+        if(axis == Rotate.X_AXIS){
+            y = getMiddleForRotation(getBoundsInParent().getMinY(), getBoundsInParent().getMaxY());
+            z = getMiddleForRotation(getBoundsInParent().getMinZ(), getBoundsInParent().getMaxZ());
+        }else if (axis == Rotate.Y_AXIS){
+            x = getMiddleForRotation(getBoundsInParent().getMinX(), getBoundsInParent().getMaxX());
+            z = getMiddleForRotation(getBoundsInParent().getMinZ(), getBoundsInParent().getMaxZ());
+        }else if (axis == Rotate.Z_AXIS){
+            x = getMiddleForRotation(getBoundsInParent().getMinX(), getBoundsInParent().getMaxX());
+            y = getMiddleForRotation(getBoundsInParent().getMinY(), getBoundsInParent().getMaxY());
+        }
+
+        return new Point3D(x, y, z);
+    }
+
+    private void rotate(double angle, Point3D axis){
+        // rotation should be used for angle = ...-180,-90,0,90,180,270,...
+        Point3D pivot = getRotationPivot(axis);
+        Rotate r = new Rotate(angle, pivot.getX(), pivot.getY(), pivot.getZ(), axis);
+        getTransforms().add(r);
     }
 }

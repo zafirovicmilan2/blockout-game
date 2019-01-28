@@ -50,4 +50,11 @@ public class Geometry {
         return new Point3D(x, y, z);
     }
 
+    public static Point3D getMiddlePoint(Node node){
+        double x = (node.getBoundsInParent().getMinX() + node.getBoundsInParent().getMaxX())/2;
+        double y = (node.getBoundsInParent().getMinY() + node.getBoundsInParent().getMaxY())/2;
+        double z = (node.getBoundsInParent().getMinZ() + node.getBoundsInParent().getMaxZ())/2;
+        return new Point3D(x, y, z);
+    }
+
 }
