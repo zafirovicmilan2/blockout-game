@@ -1,5 +1,6 @@
 package geometry;
 
+import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.transform.Translate;
 
@@ -20,6 +21,33 @@ public class Geometry {
         double ty = - node.getBoundsInLocal().getMinY();
         double tz = - node.getBoundsInLocal().getMinZ();
         node.getTransforms().addAll(new Translate(tx + x, ty + y, tz + z));
+    }
+
+    public static boolean isInside(Node node, Point3D point){
+        if (node.getBoundsInParent().getMinX() > point.getX())
+            return false;
+        if (node.getBoundsInParent().getMinY() > point.getY())
+            return false;
+        if (node.getBoundsInParent().getMinZ() > point.getZ())
+            return false;
+        if (node.getBoundsInParent().getMaxX() < point.getX())
+            return false;
+        if (node.getBoundsInParent().getMaxY() < point.getY())
+            return false;
+        if (node.getBoundsInParent().getMaxZ() < point.getZ())
+            return false;
+        return true;
+    }
+
+    public static boolean haveSameBounds(Node n1, Node n2){
+        return n1.getBoundsInParent() == n2.getBoundsInParent();
+    }
+
+    public static Point3D getLowerLeftPoint(Node node){
+        double x = node.getBoundsInParent().getMinX();
+        double y = node.getBoundsInParent().getMinY();
+        double z = node.getBoundsInParent().getMinZ();
+        return new Point3D(x, y, z);
     }
 
 }
