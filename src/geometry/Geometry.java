@@ -17,9 +17,9 @@ public class Geometry {
      * Position lower left corner of the node to (x,y,z)
      */
     public static void positionTo(Node node, double x, double y, double z){
-        double tx = - node.getBoundsInLocal().getMinX();
-        double ty = - node.getBoundsInLocal().getMinY();
-        double tz = - node.getBoundsInLocal().getMinZ();
+        double tx = - node.getBoundsInLocal().getMinX() + node.getTranslateX();
+        double ty = - node.getBoundsInLocal().getMinY() + node.getTranslateY();
+        double tz = - node.getBoundsInLocal().getMinZ() + node.getTranslateZ();
         node.getTransforms().addAll(new Translate(tx + x, ty + y, tz + z));
     }
 

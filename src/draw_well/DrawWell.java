@@ -26,17 +26,19 @@ public class DrawWell extends Group {
         frame = new Frame(boxDimension, boxNumX, boxNumY, boxNumZ + extBoxNumZ);
         Geometry.positionTo(frame, Frame.WIRE_RADIUS, Frame.WIRE_RADIUS, Frame.WIRE_RADIUS);
         getChildren().add(frame);
-
+        System.out.println("FRAME: " + frame.getBoundsInParent());
         levels = new ArrayList<>();
         double tz = 0;
         for (int i = 0; i < boxNumZ; i++) {
             Level level = new Level(boxDimension, boxNumX, boxNumY);
             Geometry.positionToZero(level);
+
             level.setTranslateZ(level.getTranslateZ() + tz);
             level.setMaterial(this.matLevel[i]);
             levels.add(level);
             getChildren().add(level);
-            tz += boxDimension;
+            tz += -boxDimension;
+            System.out.println("LEVEL" + i + ": " + level.getBoundsInParent());
         }
     }
 

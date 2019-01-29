@@ -19,8 +19,8 @@ public class Level extends Group {
             boxes[i] = new Box[boxNumX];
             for (int j = 0; j < boxNumX; j++) {
                 Box box = new Box(boxDimension, boxDimension, boxDimension);
-                box.setTranslateX(box.getTranslateX() + tx);
-                box.setTranslateY(box.getTranslateY() + ty);
+                box.setTranslateX(box.getTranslateX() + tx + boxDimension/2);
+                box.setTranslateY(box.getTranslateY() + ty + boxDimension/2);
                 boxes[i][j] = box;
                 box.setVisible(false);
                 getChildren().add(box);
