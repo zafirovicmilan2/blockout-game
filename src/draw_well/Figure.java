@@ -24,14 +24,14 @@ public class Figure extends Group {
 
             Box newBox = new Box(boxDimension, boxDimension, boxDimension);  // TODO potential problem: this is not placed at (0,0,0)
             Point3D randomTranslation = getRandomTranslation();
-            Point3D base = Geometry.getLowerLeftPoint(boxes[randomGenerator.nextInt(index)]);  // box that newBox will be added to
+            Point3D base = Geometry.getLowerLeftPointInParent(boxes[randomGenerator.nextInt(index)]);  // box that newBox will be added to
 
             newBox.setTranslateX(getTranslateX() + base.getX() + randomTranslation.getX());
             newBox.setTranslateY(getTranslateY() + base.getY() + randomTranslation.getY());
             newBox.setTranslateZ(getTranslateZ() + base.getZ() + randomTranslation.getZ());
 
             for (int i = 0; i < index; i++)
-                if(Geometry.haveSameBounds(boxes[i], newBox))
+                if(Geometry.haveSameBoundsInParent(boxes[i], newBox))
                     continue;
 
             boxes[index++] = newBox;
@@ -85,4 +85,6 @@ public class Figure extends Group {
         Rotate r = new Rotate(angle, pivot.getX(), pivot.getY(), pivot.getZ(), axis);
         getTransforms().add(r);
     }
+
+
 }

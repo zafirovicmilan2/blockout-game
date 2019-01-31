@@ -1,11 +1,11 @@
 package draw_well;
 
 import geometry.Coordinates;
-import geometry.Geometry;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Material;
 import javafx.util.Duration;
@@ -20,12 +20,12 @@ public class DrawWell extends Group {
     private Frame frame;
     private double boxDimension;
 
-    public DrawWell(double boxDimension, int boxNumX, int boxNumY, int boxNumZ, int extBoxNumZ, Material[] matLevel) {
+    public DrawWell(double boxDimension, int boxNumX, int boxNumY, int boxNumZ, Material[] matLevel) {
 
         this.boxDimension = boxDimension;
         this.matLevel = matLevel; // TODO 1)update material setting, 2)check if boxNumZ==len(matLevel)
 
-        frame = new Frame(boxDimension, boxNumX, boxNumY, boxNumZ + extBoxNumZ);
+        frame = new Frame(boxDimension, boxNumX, boxNumY, boxNumZ);
         getChildren().add(frame);
         levels = new ArrayList<>();
         double tz = 0;
@@ -51,6 +51,13 @@ public class DrawWell extends Group {
     }
 
     /**
+     * @return indexes of a box that the point belongs to
+     */
+    public Coordinates<Integer> getIndexes(Point3D point){
+        return getIndexes(point.getX(), point.getY(), point.getZ());
+    }
+
+    /**
      * make the box(with this indexes) visible
      */
     public void setVisible(Coordinates<Integer> coordinates){
@@ -58,7 +65,7 @@ public class DrawWell extends Group {
         levels.get(coordinates.getI()).setVisible(coordinates.getJ(),coordinates.getK());
     }
 
-    private Transition removeLevel(int levelIndex){
+    public Transition getRemoveLevelTransition(int levelIndex){
         // TODO check index out of bounds
         //bring down all levels above current level
         ParallelTransition pt = new ParallelTransition();
@@ -77,15 +84,14 @@ public class DrawWell extends Group {
         return pt;
     }
 
-    public Transition removeLevels(int... levelIndexes){
+    public Transition getRemoveLevelsTransition(int... levelIndexes){
         SequentialTransition st = new SequentialTransition();
         // TODO check if levelIndexes has only unique elements(i.e. not OK:[1,2,2] OK:[1,2,3])
         Arrays.sort(levelIndexes);
         for (int i = levelIndexes.length - 1; i >= 0; i--) {
-            st.getChildren().add(removeLevel(levelIndexes[i]));
+            st.getChildren().add(getRemoveLevelTransition(levelIndexes[i]));
         }
         return st;
-        //assignMaterial();
     }
 
     private int getHeightBoxesNum(){

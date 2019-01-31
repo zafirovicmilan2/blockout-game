@@ -57,13 +57,6 @@ public class Main extends Application {
         Transition tra = dw.removeLevels(0,1);
         tra.play();
         tra.setOnFinished(e->{        dw.setVisible(new Coordinates<>(2,0,0));});*/
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                for (int k = 0; k < 2; k++) {
-                    System.out.println(dw.levels.get(i).boxes[j][k].localToScene(dw.levels.get(i).boxes[j][k].getBoundsInLocal()));
-                }
-            }
-        }
 
 
 
