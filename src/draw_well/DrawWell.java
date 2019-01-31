@@ -103,4 +103,11 @@ public class DrawWell extends Group {
             levels.get(i).setMaterial(matLevel[i]);
         }
     }
+
+    public boolean intersects(Figure figure){
+        for (int i = 0; i < levels.size(); i++)
+            if (levels.get(i).intersects(figure))
+                return true;
+        return false;
+    }
 }

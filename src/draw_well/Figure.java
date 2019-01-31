@@ -86,5 +86,7 @@ public class Figure extends Group {
         getTransforms().add(r);
     }
 
-
+    public Box[] getBoxes() {
+        return boxes;
+    }
 }

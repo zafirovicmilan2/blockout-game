@@ -1,14 +1,19 @@
 package draw_well;
 
+import geometry.Geometry;
 import javafx.scene.Group;
 import javafx.scene.paint.Material;
 import javafx.scene.shape.Box;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Level extends Group {
 
     public Box [][] boxes;
     private int boxNumX, boxNumY;
     private int visibleBoxesCnt = 0;
+    private List<Box> visibleBoxes = new LinkedList<>();
 
     public Level(double boxDimension, int boxNumX, int boxNumY) {
         this.boxNumX = boxNumX;
@@ -52,6 +57,7 @@ public class Level extends Group {
             if(!boxes[i][j].isVisible()){
                 boxes[i][j].setVisible(true);
                 ++visibleBoxesCnt;
+                visibleBoxes.add(boxes[i][j]);
             }
     }
 
@@ -64,6 +70,7 @@ public class Level extends Group {
                 boxes[i][j].setVisible(false);
             }
         }
+        visibleBoxes.clear();
         visibleBoxesCnt = 0;
     }
 
@@ -74,5 +81,11 @@ public class Level extends Group {
         return visibleBoxesCnt == (boxNumX * boxNumY);
     }
 
-
+    public boolean intersects(Figure figure){
+        for (int i = 0; i < figure.getBoxes().length; i++)
+            for (int j = 0; j < visibleBoxes.size(); j++)
+                if(Geometry.intersectsInScene(visibleBoxes.get(j), figure.getBoxes()[i]))
+                    return true;
+        return false;
+    }
 }

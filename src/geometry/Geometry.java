@@ -44,4 +44,10 @@ public class Geometry {
         return new Point3D(x, y, z);
     }
 
+    public static boolean intersectsInScene(Node n1, Node n2){
+        Bounds n1SceneBounds = n1.localToScene(n1.getBoundsInLocal());
+        Bounds n2SceneBounds = n2.localToScene(n2.getBoundsInLocal());
+        return n1SceneBounds.intersects(n2SceneBounds);
+    }
+
 }
