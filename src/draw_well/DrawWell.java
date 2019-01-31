@@ -3,6 +3,8 @@ package draw_well;
 import geometry.Coordinates;
 import geometry.Geometry;
 import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.paint.Material;
@@ -13,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DrawWell extends Group {
-    private List<Level> levels;
+    public List<Level> levels;
     private Material matLevel[];
     private Frame frame;
     private double boxDimension;
@@ -24,21 +26,16 @@ public class DrawWell extends Group {
         this.matLevel = matLevel; // TODO 1)update material setting, 2)check if boxNumZ==len(matLevel)
 
         frame = new Frame(boxDimension, boxNumX, boxNumY, boxNumZ + extBoxNumZ);
-        Geometry.positionTo(frame, Frame.WIRE_RADIUS, Frame.WIRE_RADIUS, Frame.WIRE_RADIUS);
         getChildren().add(frame);
-        System.out.println("FRAME: " + frame.getBoundsInParent());
         levels = new ArrayList<>();
         double tz = 0;
         for (int i = 0; i < boxNumZ; i++) {
             Level level = new Level(boxDimension, boxNumX, boxNumY);
-            Geometry.positionToZero(level);
-
             level.setTranslateZ(level.getTranslateZ() + tz);
             level.setMaterial(this.matLevel[i]);
             levels.add(level);
             getChildren().add(level);
-            tz += -boxDimension;
-            System.out.println("LEVEL" + i + ": " + level.getBoundsInParent());
+            tz += boxDimension;
         }
     }
 
@@ -61,12 +58,12 @@ public class DrawWell extends Group {
         levels.get(coordinates.getI()).setVisible(coordinates.getJ(),coordinates.getK());
     }
 
-    private void removeLevel(int levelIndex){
+    private Transition removeLevel(int levelIndex){
         // TODO check index out of bounds
         //bring down all levels above current level
         ParallelTransition pt = new ParallelTransition();
         for (int j = levelIndex + 1; j < levels.size(); j++) {
-            TranslateTransition tt = new TranslateTransition(Duration.seconds(1.0), levels.get(j));
+            TranslateTransition tt = new TranslateTransition(Duration.seconds(5.0), levels.get(j));
             tt.setByZ(-boxDimension);
             pt.getChildren().add(tt);
         }
@@ -77,18 +74,18 @@ public class DrawWell extends Group {
         removed.setTranslateZ(removed.getTranslateZ() + boxDimension * (getHeightBoxesNum() - levelIndex));
         levels.add(removed);
 
-        pt.play();
-
+        return pt;
     }
 
-    public void removeLevels(int... levelIndexes){
+    public Transition removeLevels(int... levelIndexes){
+        SequentialTransition st = new SequentialTransition();
         // TODO check if levelIndexes has only unique elements(i.e. not OK:[1,2,2] OK:[1,2,3])
         Arrays.sort(levelIndexes);
         for (int i = levelIndexes.length - 1; i >= 0; i--) {
-            removeLevel(i);
+            st.getChildren().add(removeLevel(levelIndexes[i]));
         }
-
-        assignMaterial();
+        return st;
+        //assignMaterial();
     }
 
     private int getHeightBoxesNum(){

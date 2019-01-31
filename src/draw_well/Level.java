@@ -6,7 +6,7 @@ import javafx.scene.shape.Box;
 
 public class Level extends Group {
 
-    private Box [][] boxes;
+    public Box [][] boxes;
     private int boxNumX, boxNumY;
     private int visibleBoxesCnt = 0;
 
@@ -21,6 +21,7 @@ public class Level extends Group {
                 Box box = new Box(boxDimension, boxDimension, boxDimension);
                 box.setTranslateX(box.getTranslateX() + tx + boxDimension/2);
                 box.setTranslateY(box.getTranslateY() + ty + boxDimension/2);
+                box.setTranslateZ(box.getTranslateZ() + boxDimension/2);
                 boxes[i][j] = box;
                 box.setVisible(false);
                 getChildren().add(box);

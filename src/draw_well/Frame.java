@@ -49,13 +49,13 @@ public class Frame extends Group {
         Group bottom = createSide(boxDimension, boxNumX, boxNumY);
 
         Group side1 = createSide(boxDimension, boxNumZ, boxNumY);
-        Rotate r1 = new Rotate(90, Rotate.Y_AXIS);
+        Rotate r1 = new Rotate(-90, Rotate.Y_AXIS);
         r1.setPivotX(side1.getBoundsInLocal().getMinX() + WIRE_RADIUS);
         r1.setPivotZ(side1.getBoundsInLocal().getMinZ() + WIRE_RADIUS);
         side1.getTransforms().add(r1);
 
         Group side2 = createSide(boxDimension, boxNumX, boxNumZ);
-        Rotate r2 = new Rotate(-90, Rotate.X_AXIS);
+        Rotate r2 = new Rotate(90, Rotate.X_AXIS);
         r2.setPivotY(side2.getBoundsInLocal().getMinY() + WIRE_RADIUS);
         r2.setPivotZ(side2.getBoundsInLocal().getMinZ() + WIRE_RADIUS);
         side2.getTransforms().add(r2);
