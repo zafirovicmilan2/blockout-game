@@ -4,7 +4,9 @@ import geometry.Geometry;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.shape.Box;
+import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
 
 import java.util.Random;
 
@@ -73,14 +75,26 @@ public class Figure extends Group {
      * @param angle
      * @param axis - coordinates from scene coordinate system, not local
      */
-    public void rotate(double angle, Point3D axis){
+    public Rotate getRotation(double angle, Point3D axis){
         // rotation should be used for angle = ...-180,-90,0,90,180,270,...
         Point3D pivot = getRotationPivot();
         Rotate r = new Rotate(angle, pivot.getX(), pivot.getY(), pivot.getZ(), axis);
-        getTransforms().add(r);
+        return r;
     }
 
     public Box[] getBoxes() {
         return boxes;
+    }
+
+    public void addTransformation(Transform transform, DrawWell drawWell){
+        Transform inverse = null;
+        try {
+            inverse = transform.createInverse();
+        } catch (NonInvertibleTransformException e) {
+            e.printStackTrace();
+        }
+        getTransforms().add(transform);
+        if (drawWell.intersects(this))
+            getTransforms().add(inverse);
     }
 }

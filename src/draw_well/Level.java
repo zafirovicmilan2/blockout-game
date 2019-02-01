@@ -1,6 +1,7 @@
 package draw_well;
 
 import geometry.Geometry;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Material;
 import javafx.scene.shape.Box;
@@ -83,9 +84,12 @@ public class Level extends Group {
 
     public boolean intersects(Figure figure){
         for (int i = 0; i < figure.getBoxes().length; i++)
-            for (int j = 0; j < visibleBoxes.size(); j++)
-                if(Geometry.intersectsInScene(visibleBoxes.get(j), figure.getBoxes()[i]))
+            for (int j = 0; j < visibleBoxes.size(); j++) {
+                Point3D mp = Geometry.getMiddlePointInScene(figure.getBoxes()[i]);
+                if(visibleBoxes.get(j).localToScene(visibleBoxes.get(j).getBoundsInLocal()).contains(mp))
                     return true;
+            }
+
         return false;
     }
 }
