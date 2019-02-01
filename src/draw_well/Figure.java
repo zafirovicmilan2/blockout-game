@@ -94,7 +94,7 @@ public class Figure extends Group {
             e.printStackTrace();
         }
         getTransforms().add(transform);
-        if (drawWell.intersects(this))
+        if (drawWell.intersects(this) || (!drawWell.isInside(this)))
             getTransforms().add(inverse);
     }
 }

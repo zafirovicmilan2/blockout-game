@@ -1,6 +1,7 @@
 package draw_well;
 
 import geometry.Coordinates;
+import geometry.Geometry;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
@@ -109,5 +110,18 @@ public class DrawWell extends Group {
             if (levels.get(i).intersects(figure))
                 return true;
         return false;
+    }
+
+    /**
+     * @param figure
+     * @return if figure is inside draw-well
+     */
+    public boolean isInside(Figure figure){
+        for (int i = 0; i < figure.getBoxes().length; i++) {
+            Point3D mp = Geometry.getMiddlePointInScene(figure);
+            if (! this.localToScene(this.getBoundsInLocal()).contains(mp))
+                return false;
+        }
+        return true;
     }
 }
