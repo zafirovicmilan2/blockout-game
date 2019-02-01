@@ -64,21 +64,16 @@ public class Main extends Application {
         root.getChildren().addAll(dw);*/
 
         Figure figure = new Figure(20,2);
-        for (int i = 0; i < figure.getBoxes().length; i++) {
-            System.out.println(figure.getBoxes()[i].localToScene(figure.getBoxes()[i].getBoundsInLocal()));
-        }
+        System.out.println(figure.localToScene(figure.getBoundsInLocal()));
+
         figure.rotate(180,Rotate.X_AXIS);
-        for (int i = 0; i < figure.getBoxes().length; i++) {
-            System.out.println(figure.getBoxes()[i].localToScene(figure.getBoxes()[i].getBoundsInLocal()));
-        }
+        System.out.println(figure.localToScene(figure.getBoundsInLocal()));
+
         figure.rotate(90,Rotate.Y_AXIS);
-        for (int i = 0; i < figure.getBoxes().length; i++) {
-            System.out.println(figure.getBoxes()[i].localToScene(figure.getBoxes()[i].getBoundsInLocal()));
-        }
+        System.out.println(figure.localToScene(figure.getBoundsInLocal()));
+
         figure.rotate(-90,Rotate.Z_AXIS);
-        for (int i = 0; i < figure.getBoxes().length; i++) {
-            System.out.println(figure.getBoxes()[i].localToScene(figure.getBoxes()[i].getBoundsInLocal()));
-        }
+        System.out.println(figure.localToScene(figure.getBoundsInLocal()));
 
         root.getChildren().add(figure);
 

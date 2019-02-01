@@ -62,27 +62,20 @@ public class Figure extends Group {
             return (maxBound + minBound)/2;
     }
 
-    private Point3D getRotationPivot(Point3D axis){
-        // TODO check if axis != (X_AXIS or Y_AXIS or Z_AXIS)
-        double x = 0.0, y = 0.0, z = 0.0;
-        if(axis == Rotate.X_AXIS){
-            y = getMiddleForRotation(getBoundsInLocal().getMinY(), getBoundsInLocal().getMaxY());
-            z = getMiddleForRotation(getBoundsInLocal().getMinZ(), getBoundsInLocal().getMaxZ());
-        }else if (axis == Rotate.Y_AXIS){
-            x = getMiddleForRotation(getBoundsInLocal().getMinX(), getBoundsInLocal().getMaxX());
-            z = getMiddleForRotation(getBoundsInLocal().getMinZ(), getBoundsInLocal().getMaxZ());
-        }else if (axis == Rotate.Z_AXIS){
-            x = getMiddleForRotation(getBoundsInLocal().getMinX(), getBoundsInLocal().getMaxX());
-            y = getMiddleForRotation(getBoundsInLocal().getMinY(), getBoundsInLocal().getMaxY());
-        }
-        System.out.println("LOCAL BOUNDS: " + getBoundsInLocal());
-        System.out.println("PIVOT: " + new Point3D(x, y, z));
+    private Point3D getRotationPivot(){
+        double x = getMiddleForRotation(getBoundsInLocal().getMinX(), getBoundsInLocal().getMaxX());
+        double y = getMiddleForRotation(getBoundsInLocal().getMinY(), getBoundsInLocal().getMaxY());
+        double z = getMiddleForRotation(getBoundsInLocal().getMinZ(), getBoundsInLocal().getMaxZ());
         return new Point3D(x, y, z);
     }
 
+    /**
+     * @param angle
+     * @param axis - coordinates from scene coordinate system, not local
+     */
     public void rotate(double angle, Point3D axis){
         // rotation should be used for angle = ...-180,-90,0,90,180,270,...
-        Point3D pivot = getRotationPivot(axis);
+        Point3D pivot = getRotationPivot();
         Rotate r = new Rotate(angle, pivot.getX(), pivot.getY(), pivot.getZ(), axis);
         getTransforms().add(r);
     }
