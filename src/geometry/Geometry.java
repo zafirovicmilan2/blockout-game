@@ -26,7 +26,14 @@ public class Geometry {
     }
 
     public static boolean haveSameBoundsInParent(Node n1, Node n2){
-        return n1.getBoundsInParent() == n2.getBoundsInParent();
+        Bounds n1Bounds = n1.getBoundsInParent();
+        Bounds n2Bounds = n2.getBoundsInParent();
+        if(n1Bounds.getMinX() == n2Bounds.getMinX() && n1Bounds.getMaxX() == n2Bounds.getMaxX() &&
+                n1Bounds.getMinY() == n2Bounds.getMinY() && n1Bounds.getMaxY() == n2Bounds.getMaxY() &&
+                n1Bounds.getMinZ() == n2Bounds.getMinZ() && n1Bounds.getMaxZ() == n2Bounds.getMaxZ())
+            return true;
+        else
+            return false;
     }
 
     public static Point3D getLowerLeftPointInParent(Node node){

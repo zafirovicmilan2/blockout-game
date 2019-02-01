@@ -20,19 +20,19 @@ public class Figure extends Group {
         boxes = new Box[numOfBoxes];
         boxes[0] = new Box(boxDimension, boxDimension, boxDimension);  // TODO potential problem: this is not placed at (0,0,0)
         int index = 1;
-        while(index != numOfBoxes){
+        loop: while(index != numOfBoxes){
 
             Box newBox = new Box(boxDimension, boxDimension, boxDimension);  // TODO potential problem: this is not placed at (0,0,0)
             Point3D randomTranslation = getRandomTranslation();
             Point3D base = Geometry.getLowerLeftPointInParent(boxes[randomGenerator.nextInt(index)]);  // box that newBox will be added to
-
-            newBox.setTranslateX(getTranslateX() + base.getX() + randomTranslation.getX());
-            newBox.setTranslateY(getTranslateY() + base.getY() + randomTranslation.getY());
-            newBox.setTranslateZ(getTranslateZ() + base.getZ() + randomTranslation.getZ());
+            Geometry.positionToZero(newBox);
+            newBox.setTranslateX(newBox.getTranslateX() + base.getX() + randomTranslation.getX());
+            newBox.setTranslateY(newBox.getTranslateY() + base.getY() + randomTranslation.getY());
+            newBox.setTranslateZ(newBox.getTranslateZ() + base.getZ() + randomTranslation.getZ());
 
             for (int i = 0; i < index; i++)
                 if(Geometry.haveSameBoundsInParent(boxes[i], newBox))
-                    continue;
+                    continue loop;
 
             boxes[index++] = newBox;
         }
