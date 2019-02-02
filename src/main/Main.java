@@ -16,7 +16,7 @@ public class Main extends Application {
     public static final int BOX_NUM_Y = 4;
     public static final int BOX_NUM_Z = 4;
     public static final int BOX_NUM_EXT_Z = 3;
-    public static final int BOX_NUM_IN_FIGURE = 3;
+    public static final int BOX_NUM_IN_FIGURE = 2;
 
     public static void main(String[] args) {
         launch(args);

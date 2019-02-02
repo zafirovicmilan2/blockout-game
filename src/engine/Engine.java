@@ -3,6 +3,7 @@ package engine;
 import draw_well.DrawWell;
 import draw_well.Figure;
 import geometry.Geometry;
+import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.KeyEvent;
@@ -10,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.transform.Rotate;
 import main.Main;
+
+import java.util.List;
 
 public class Engine implements EventHandler<KeyEvent> {
 
@@ -45,10 +48,6 @@ public class Engine implements EventHandler<KeyEvent> {
         group.getChildren().add(drawWell);
         if (currentFigure != null)
             group.getChildren().add(currentFigure);
-    }
-
-    public DrawWell getDrawWell() {
-        return drawWell;
     }
 
     @Override
@@ -92,8 +91,25 @@ public class Engine implements EventHandler<KeyEvent> {
     public void update(){
         switch (state){
             case FIGURE_FALLING:
-                if (!currentFigure.translate(Rotate.Z_AXIS, -1.0, drawWell))
-                    createFigure();
+                if (!currentFigure.translate(Rotate.Z_AXIS, -0.5, drawWell)){
+                    drawWell.addFigure(currentFigure);
+                    currentFigure = null;
+                    resetChildren();
+                    List<Integer> filledLevels = drawWell.getFilledLevels();
+                    if (filledLevels.isEmpty())
+                        createFigure();
+                    else {
+                        state = State.LEVELS_REDUCTION;
+                        Transition transition = drawWell.getRemoveLevelsTransition(filledLevels.toArray(new Integer[filledLevels.size()]));
+                        transition.setOnFinished(e-> {
+                            drawWell.assignMaterial();
+                            createFigure();
+                            state = State.FIGURE_FALLING;
+                        });
+                        transition.play();
+                    }
+                }
+
                 break;
             case LEVELS_REDUCTION:
                 break;

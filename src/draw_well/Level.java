@@ -82,6 +82,14 @@ public class Level extends Group {
         return visibleBoxesCnt == (boxNumX * boxNumY);
     }
 
+
+    /**
+     * Checks if there is at least one visible box
+     */
+    public boolean isAnyBoxVisible(){
+        return visibleBoxesCnt > 0;
+    }
+
     public boolean intersects(Figure figure){
         for (int i = 0; i < figure.getBoxes().length; i++)
             for (int j = 0; j < visibleBoxes.size(); j++) {

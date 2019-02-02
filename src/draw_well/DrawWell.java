@@ -10,9 +10,11 @@ import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Material;
 import javafx.util.Duration;
+import main.Main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DrawWell extends Group {
@@ -45,9 +47,9 @@ public class DrawWell extends Group {
      */
     public Coordinates<Integer> getIndexes(double x, double y, double z){
         // TODO check if the point is inside draw-well
-        int i = (int)(x/boxDimension);
+        int i = (int)(z/boxDimension);
         int j = (int)(y/boxDimension);
-        int k = (int)(z/boxDimension);
+        int k = (int)(x/boxDimension);
         return new Coordinates<>(i, j, k);
     }
 
@@ -67,11 +69,18 @@ public class DrawWell extends Group {
     }
 
     public Transition getRemoveLevelTransition(int levelIndex){
-        // TODO check index out of bounds
-        //bring down all levels above current level
+        boolean noVisibleBoxes = true;
+
+        for (int j = levelIndex + 1; j < levels.size(); j++)
+            if (levels.get(j).isAnyBoxVisible()){
+                noVisibleBoxes = false;
+                break;
+            }
+        Duration duration = noVisibleBoxes ? Duration.seconds(0.1) : Duration.seconds(2.0);
+
         ParallelTransition pt = new ParallelTransition();
         for (int j = levelIndex + 1; j < levels.size(); j++) {
-            TranslateTransition tt = new TranslateTransition(Duration.seconds(5.0), levels.get(j));
+            TranslateTransition tt = new TranslateTransition(duration, levels.get(j));
             tt.setByZ(-boxDimension);
             pt.getChildren().add(tt);
         }
@@ -85,7 +94,7 @@ public class DrawWell extends Group {
         return pt;
     }
 
-    public Transition getRemoveLevelsTransition(int... levelIndexes){
+    public Transition getRemoveLevelsTransition(Integer... levelIndexes){
         SequentialTransition st = new SequentialTransition();
         // TODO check if levelIndexes has only unique elements(i.e. not OK:[1,2,2] OK:[1,2,3])
         Arrays.sort(levelIndexes);
@@ -119,9 +128,26 @@ public class DrawWell extends Group {
     public boolean isInside(Figure figure){
         for (int i = 0; i < figure.getBoxes().length; i++) {
             Point3D mp = Geometry.getMiddlePointInScene(figure.getBoxes()[i]);
-            if (! this.localToScene(this.getBoundsInLocal()).contains(mp))
+            Point3D mp1 = new Point3D(mp.getX(), mp.getY(), mp.getZ() - Main.BOX_DIMENSION * 0.4);
+            if (! this.localToScene(this.getBoundsInLocal()).contains(mp1))
                 return false;
         }
         return true;
+    }
+
+    public List<Integer> getFilledLevels(){
+        List<Integer> res = new LinkedList<>();
+        for (int i = 0; i < levels.size(); i++) {
+            if (levels.get(i).isWholeLevelVisible())
+                res.add(i);
+        }
+        return res;
+    }
+
+    public void addFigure(Figure figure){
+        for (int i = 0; i < figure.getBoxes().length; i++) {
+            setVisible(getIndexes(Geometry.getMiddlePointInScene(figure.getBoxes()[i])));
+        }
+        assignMaterial();
     }
 }
