@@ -72,17 +72,6 @@ public class Figure extends Group {
         return new Point3D(x, y, z);
     }
 
-    /**
-     * @param angle
-     * @param axis - coordinates from scene coordinate system, not local
-     */
-    public Rotate getRotation(double angle, Point3D axis){
-        // rotation should be used for angle = 90 or -90
-        Point3D pivot = getRotationPivot();
-        Rotate r = new Rotate(angle, pivot.getX(), pivot.getY(), pivot.getZ(), axis);
-        return r;
-    }
-
     public Box[] getBoxes() {
         return boxes;
     }
@@ -102,14 +91,17 @@ public class Figure extends Group {
         return true;
     }
 
-    public void rotate(Point3D axis, double angle, DrawWell drawWell){
+    public boolean rotate(Point3D axis, double angle, DrawWell drawWell){
         Point3D pivot = getRotationPivot();
         Rotate r = new Rotate(localAxes.translateToLocalAngle(axis, angle), pivot.getX(), pivot.getY(), pivot.getZ(), localAxes.translateToLocalAxis(axis));
-        if (addTransformation(r, drawWell))
+        if (addTransformation(r, drawWell)){
             localAxes.rotate(axis, angle);
+            return true;
+        }else
+            return false;
     }
 
-    public void translate(Point3D axis, double move, DrawWell drawWell){
-        addTransformation(localAxes.translateToLocalTranslation(axis, move), drawWell);
+    public boolean translate(Point3D axis, double move, DrawWell drawWell){
+        return addTransformation(localAxes.translateToLocalTranslation(axis, move), drawWell);
     }
 }
