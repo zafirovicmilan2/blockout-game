@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
@@ -20,8 +21,13 @@ public class Engine implements EventHandler<KeyEvent> {
 
     public Engine(Group group) {
         this.group = group;
-        PhongMaterial[] materials = new PhongMaterial[Main.BOX_NUM_Z]; // TODO add material
+        PhongMaterial[] materials = new PhongMaterial[Main.BOX_NUM_Z];
+        for (int i = 0; i < Main.BOX_NUM_Z; i++) {
+            materials[i] = new PhongMaterial();
+            materials[i].setDiffuseColor(Color.color(Math.random(), Math.random(), Math.random()));
+        }
         drawWell = new DrawWell(Main.BOX_DIMENSION, Main.BOX_NUM_X, Main.BOX_NUM_Y, Main.BOX_NUM_Z, materials);
+        drawWell.assignMaterial();
         group.getChildren().add(drawWell);
     }
 

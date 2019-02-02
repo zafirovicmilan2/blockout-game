@@ -99,7 +99,7 @@ public class DrawWell extends Group {
         return levels.size();
     }
 
-    private void assignMaterial(){
+    public void assignMaterial(){
         for (int i = 0; i < levels.size(); i++) {
             levels.get(i).setMaterial(matLevel[i]);
         }

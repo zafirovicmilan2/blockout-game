@@ -39,6 +39,7 @@ public class Main extends Application {
         engine = new Engine(root);
         engine.createFigure();
         engine.getDrawWell().setVisible(new Coordinates<>(0,3,3));
+        engine.getDrawWell().setVisible(new Coordinates<>(1,2,2));
 
         Scene scene = new Scene(root, 700, 300,true);
         scene.setCamera(pc );
