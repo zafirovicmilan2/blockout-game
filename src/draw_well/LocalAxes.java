@@ -23,13 +23,13 @@ public class LocalAxes {
             Point3D tempAxis = yAxis;
             yAxis = zAxis;
             zAxis = tempAxis;
-            if (angle == 90)
+            if (angle == -90)
             {
                 int tempDirection = zAxisDirection;
                 zAxisDirection = NEGATIVE * yAxisDirection;
                 yAxisDirection = tempDirection;
             }
-            else if (angle == -90)
+            else if (angle == 90)
             {
                 int tempDirection = yAxisDirection;
                 yAxisDirection = NEGATIVE * zAxisDirection;
@@ -42,13 +42,13 @@ public class LocalAxes {
             Point3D tempAxis = xAxis;
             xAxis = zAxis;
             zAxis = tempAxis;
-            if (angle == 90)
+            if (angle == -90)
             {
                 int tempDirection = zAxisDirection;
                 zAxisDirection = xAxisDirection;
                 xAxisDirection = NEGATIVE * tempDirection;
             }
-            else if (angle == -90)
+            else if (angle == 90)
             {
                 int tempDirection = xAxisDirection;
                 xAxisDirection = zAxisDirection;
@@ -60,13 +60,13 @@ public class LocalAxes {
             Point3D tempAxis = xAxis;
             xAxis = yAxis;
             yAxis = tempAxis;
-            if (angle == 90)
+            if (angle == -90)
             {
                 int tempDirection = xAxisDirection;
                 xAxisDirection = yAxisDirection;
                 yAxisDirection = NEGATIVE * tempDirection;
             }
-            else if (angle == -90)
+            else if (angle == 90)
             {
                 int tempDirection = xAxisDirection;
                 xAxisDirection = NEGATIVE * yAxisDirection;

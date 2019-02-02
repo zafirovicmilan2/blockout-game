@@ -63,27 +63,27 @@ public class Engine implements EventHandler<KeyEvent> {
         }
         else if (event.getCode() == KeyCode.V && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(currentFigure.getRotation(90, Rotate.Z_AXIS), drawWell);
+            currentFigure.rotate(Rotate.Z_AXIS, 90, drawWell);
         }
         else if (event.getCode() == KeyCode.F && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(currentFigure.getRotation(-90, Rotate.Z_AXIS), drawWell);
+            currentFigure.rotate(Rotate.Z_AXIS, -90, drawWell);
         }
         else if (event.getCode() == KeyCode.B && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(currentFigure.getRotation(90, Rotate.X_AXIS), drawWell);
+            currentFigure.rotate(Rotate.X_AXIS, 90, drawWell);
         }
         else if (event.getCode() == KeyCode.G && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(currentFigure.getRotation(-90, Rotate.X_AXIS), drawWell);
+            currentFigure.rotate(Rotate.X_AXIS, -90, drawWell);
         }
         else if (event.getCode() == KeyCode.N && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(currentFigure.getRotation(90, Rotate.Y_AXIS), drawWell);
+            currentFigure.rotate(Rotate.Y_AXIS, 90, drawWell);
         }
         else if (event.getCode() == KeyCode.H && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(currentFigure.getRotation(-90, Rotate.Y_AXIS), drawWell);
+            currentFigure.rotate(Rotate.Y_AXIS, -90, drawWell);
         }
     }
 }
