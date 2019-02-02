@@ -16,6 +16,7 @@ public class Figure extends Group {
     private double boxDimension;
     private Point3D[] randomTranslations = null;
     private Random randomGenerator = null;
+    private LocalAxes localAxes = new LocalAxes();
 
     public Figure(double boxDimension, int numOfBoxes) {
         this.boxDimension = boxDimension;
@@ -76,7 +77,7 @@ public class Figure extends Group {
      * @param axis - coordinates from scene coordinate system, not local
      */
     public Rotate getRotation(double angle, Point3D axis){
-        // rotation should be used for angle = ...-180,-90,0,90,180,270,...
+        // rotation should be used for angle = 90 or -90
         Point3D pivot = getRotationPivot();
         Rotate r = new Rotate(angle, pivot.getX(), pivot.getY(), pivot.getZ(), axis);
         return r;

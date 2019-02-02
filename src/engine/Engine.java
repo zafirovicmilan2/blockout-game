@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import main.Main;
 
@@ -62,27 +63,27 @@ public class Engine implements EventHandler<KeyEvent> {
         }
         else if (event.getCode() == KeyCode.V && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-
+            currentFigure.addTransformation(currentFigure.getRotation(90, Rotate.Z_AXIS), drawWell);
         }
         else if (event.getCode() == KeyCode.F && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-
+            currentFigure.addTransformation(currentFigure.getRotation(-90, Rotate.Z_AXIS), drawWell);
         }
         else if (event.getCode() == KeyCode.B && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-
+            currentFigure.addTransformation(currentFigure.getRotation(90, Rotate.X_AXIS), drawWell);
         }
         else if (event.getCode() == KeyCode.G && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-
+            currentFigure.addTransformation(currentFigure.getRotation(-90, Rotate.X_AXIS), drawWell);
         }
         else if (event.getCode() == KeyCode.N && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-
+            currentFigure.addTransformation(currentFigure.getRotation(90, Rotate.Y_AXIS), drawWell);
         }
         else if (event.getCode() == KeyCode.H && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-
+            currentFigure.addTransformation(currentFigure.getRotation(-90, Rotate.Y_AXIS), drawWell);
         }
     }
 }
