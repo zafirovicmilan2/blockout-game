@@ -45,45 +45,38 @@ public class Engine implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        if (event.getCode() == KeyCode.RIGHT && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.translate(Rotate.X_AXIS, - Main.BOX_DIMENSION, drawWell);
-        }
-        else if (event.getCode() == KeyCode.LEFT && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.translate(Rotate.X_AXIS, Main.BOX_DIMENSION, drawWell);
-        }
-        else if (event.getCode() == KeyCode.UP && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.translate(Rotate.Y_AXIS, - Main.BOX_DIMENSION, drawWell);
-        }
-        else if (event.getCode() == KeyCode.DOWN && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.translate(Rotate.Y_AXIS, Main.BOX_DIMENSION, drawWell);
-        }
-        else if (event.getCode() == KeyCode.V && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.rotate(Rotate.Z_AXIS, 90, drawWell);
-        }
-        else if (event.getCode() == KeyCode.F && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.rotate(Rotate.Z_AXIS, -90, drawWell);
-        }
-        else if (event.getCode() == KeyCode.B && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.rotate(Rotate.X_AXIS, 90, drawWell);
-        }
-        else if (event.getCode() == KeyCode.G && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.rotate(Rotate.X_AXIS, -90, drawWell);
-        }
-        else if (event.getCode() == KeyCode.N && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.rotate(Rotate.Y_AXIS, 90, drawWell);
-        }
-        else if (event.getCode() == KeyCode.H && event.getEventType() == KeyEvent.KEY_PRESSED)
-        {
-            currentFigure.rotate(Rotate.Y_AXIS, -90, drawWell);
+
+        switch (event.getCode()){
+            case RIGHT:
+                currentFigure.translate(Rotate.X_AXIS, - Main.BOX_DIMENSION, drawWell);
+                break;
+            case LEFT:
+                currentFigure.translate(Rotate.X_AXIS, Main.BOX_DIMENSION, drawWell);
+                break;
+            case UP:
+                currentFigure.translate(Rotate.Y_AXIS, - Main.BOX_DIMENSION, drawWell);
+                break;
+            case DOWN:
+                currentFigure.translate(Rotate.Y_AXIS, Main.BOX_DIMENSION, drawWell);
+                break;
+            case V:
+                currentFigure.rotate(Rotate.Z_AXIS, 90, drawWell);
+                break;
+            case F:
+                currentFigure.rotate(Rotate.Z_AXIS, -90, drawWell);
+                break;
+            case B:
+                currentFigure.rotate(Rotate.X_AXIS, 90, drawWell);
+                break;
+            case G:
+                currentFigure.rotate(Rotate.X_AXIS, -90, drawWell);
+                break;
+            case N:
+                currentFigure.rotate(Rotate.Y_AXIS, 90, drawWell);
+                break;
+            case H:
+                currentFigure.rotate(Rotate.Y_AXIS, -90, drawWell);
+                break;
         }
     }
 }
