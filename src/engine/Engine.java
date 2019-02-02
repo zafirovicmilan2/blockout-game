@@ -47,19 +47,19 @@ public class Engine implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         if (event.getCode() == KeyCode.RIGHT && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(new Translate(-Main.BOX_DIMENSION, 0.0,0.0), drawWell);
+            currentFigure.translate(Rotate.X_AXIS, - Main.BOX_DIMENSION, drawWell);
         }
         else if (event.getCode() == KeyCode.LEFT && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(new Translate(Main.BOX_DIMENSION, 0.0,0.0), drawWell);
+            currentFigure.translate(Rotate.X_AXIS, Main.BOX_DIMENSION, drawWell);
         }
         else if (event.getCode() == KeyCode.UP && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(new Translate(0.0, -Main.BOX_DIMENSION,0.0), drawWell);
+            currentFigure.translate(Rotate.Y_AXIS, - Main.BOX_DIMENSION, drawWell);
         }
         else if (event.getCode() == KeyCode.DOWN && event.getEventType() == KeyEvent.KEY_PRESSED)
         {
-            currentFigure.addTransformation(new Translate(0.0, Main.BOX_DIMENSION,0.0), drawWell);
+            currentFigure.translate(Rotate.Y_AXIS, Main.BOX_DIMENSION, drawWell);
         }
         else if (event.getCode() == KeyCode.V && event.getEventType() == KeyEvent.KEY_PRESSED)
         {

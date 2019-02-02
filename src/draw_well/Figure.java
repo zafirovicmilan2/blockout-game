@@ -98,4 +98,15 @@ public class Figure extends Group {
         if (drawWell.intersects(this) || (!drawWell.isInside(this)))
             getTransforms().add(inverse);
     }
+
+    public void rotate(Point3D axis, double angle, DrawWell drawWell){
+        Point3D pivot = getRotationPivot();
+        Rotate r = new Rotate(localAxes.translateToLocalAngle(axis, angle), pivot.getX(), pivot.getY(), pivot.getZ(), localAxes.translateToLocalAxis(axis));
+        addTransformation(r, drawWell);
+        localAxes.rotate(axis, angle);
+    }
+
+    public void translate(Point3D axis, double move, DrawWell drawWell){
+        addTransformation(localAxes.translateToLocalTranslation(axis, move), drawWell);
+    }
 }
