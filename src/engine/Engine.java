@@ -2,6 +2,7 @@ package engine;
 
 import draw_well.DrawWell;
 import draw_well.Figure;
+import geometry.Geometry;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
@@ -24,8 +25,21 @@ public class Engine implements EventHandler<KeyEvent> {
     }
 
     public void createFigure(){
-        // TODO position on correct coordinates; add material
+        // TODO add material
         currentFigure = new Figure(Main.BOX_DIMENSION, Main.BOX_NUM_IN_FIGURE);
+        Geometry.positionToZero(currentFigure);  // TODO position on correct coordinates
+        resetChildren();
+    }
+
+    private void resetChildren(){
+        group.getChildren().clear();
+        group.getChildren().add(drawWell);
+        if (currentFigure != null)
+            group.getChildren().add(currentFigure);
+    }
+
+    public DrawWell getDrawWell() {
+        return drawWell;
     }
 
     @Override

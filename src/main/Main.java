@@ -1,5 +1,7 @@
 package main;
 
+import engine.Engine;
+import geometry.Coordinates;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
@@ -19,6 +21,8 @@ public class Main extends Application {
         launch(args);
     }
 
+    private Engine engine;
+
     @Override
     public void start(Stage primaryStage) {
         PerspectiveCamera pc = new PerspectiveCamera(true);
@@ -32,9 +36,13 @@ public class Main extends Application {
         pc.setTranslateY(30);
 
         Group root = new Group();
+        engine = new Engine(root);
+        engine.createFigure();
+        engine.getDrawWell().setVisible(new Coordinates<>(0,3,3));
 
         Scene scene = new Scene(root, 700, 300,true);
         scene.setCamera(pc );
+        scene.setOnKeyPressed(engine);
         primaryStage.setTitle("Svemirci");
         primaryStage.setScene(scene);
         primaryStage.show();

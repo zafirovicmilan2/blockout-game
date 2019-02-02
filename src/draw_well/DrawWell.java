@@ -118,7 +118,7 @@ public class DrawWell extends Group {
      */
     public boolean isInside(Figure figure){
         for (int i = 0; i < figure.getBoxes().length; i++) {
-            Point3D mp = Geometry.getMiddlePointInScene(figure);
+            Point3D mp = Geometry.getMiddlePointInScene(figure.getBoxes()[i]);
             if (! this.localToScene(this.getBoundsInLocal()).contains(mp))
                 return false;
         }
