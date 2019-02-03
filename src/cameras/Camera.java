@@ -1,3 +1,5 @@
+package cameras;
+
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
@@ -23,8 +25,8 @@ public class Camera {
         defaultCamera = new PerspectiveCamera(true);
         setUpDefaultCamera(defaultCamera);
         definedCamera = new PerspectiveCamera(true);
-        setUpDefinedCamera(definedCamera, definedCameraHolder);
         definedCameraHolder = new Group(definedCamera); // TODO maybe to add this to root
+        setUpDefinedCamera(definedCamera, definedCameraHolder);
         changeCamera(true);
     }
 
@@ -39,7 +41,7 @@ public class Camera {
     }
 
     private void setUpDefinedCamera(PerspectiveCamera definedCamera, Group definedCameraHolder){
-        Rotate t = new Rotate(90,0,0,0,Rotate.Y_AXIS);
+        Rotate t = new Rotate(180,0,0,0,Rotate.Y_AXIS);
         definedCamera.setNearClip(0.1);
         definedCamera.setFarClip(5000);
         definedCamera.getTransforms().add(t);
@@ -48,7 +50,7 @@ public class Camera {
         definedCameraHolder.setTranslateZ(Main.BOX_DIMENSION * (Main.BOX_NUM_X + Main.BOX_NUM_EXT_Z) / 2);
     }
 
-    private void changeCamera(boolean defaultOrDefined){
+    public void changeCamera(boolean defaultOrDefined){
         this.defaultOrDefined = defaultOrDefined;
         if (defaultOrDefined)
             scene.setCamera(defaultCamera);

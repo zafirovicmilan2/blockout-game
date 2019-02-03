@@ -26,24 +26,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        PerspectiveCamera pc = new PerspectiveCamera(true);
 
-        Rotate t = new Rotate(180,0,0,0,Rotate.Y_AXIS);
-        pc.setNearClip(0.1);
-        pc.setFarClip(5000);
-        pc.getTransforms().addAll(t);
-        pc.setTranslateZ(250);
-        pc.setTranslateX(50);
-        pc.setTranslateY(30);
-
-        Group root = new Group();
-        engine = new Engine(root);
-
-        Scene scene = new Scene(root, 700, 300,true);
-        scene.setCamera(pc );
-        scene.setOnKeyPressed(engine);
+        engine = new Engine();
         primaryStage.setTitle("Svemirci");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(engine.getScene());
         primaryStage.show();
 
         new AnimationTimer() {
