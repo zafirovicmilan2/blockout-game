@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Engine implements EventHandler<KeyEvent> {
 
-    private static enum State{FIGURE_FALLING, LEVELS_REDUCTION};
+    private static enum State{FIGURE_FALLING, LEVELS_REDUCTION, THE_END}
     private Group group;
     private DrawWell drawWell;
     private Figure currentFigure = null;
@@ -29,7 +29,7 @@ public class Engine implements EventHandler<KeyEvent> {
             materials[i] = new PhongMaterial();
             materials[i].setDiffuseColor(Color.color(Math.random(), Math.random(), Math.random()));
         }
-        drawWell = new DrawWell(Main.BOX_DIMENSION, Main.BOX_NUM_X, Main.BOX_NUM_Y, Main.BOX_NUM_Z + Main.BOX_NUM_EXT_Z, materials);
+        drawWell = new DrawWell(Main.BOX_DIMENSION, Main.BOX_NUM_X, Main.BOX_NUM_Y, Main.BOX_NUM_Z, Main.BOX_NUM_EXT_Z, materials);
         drawWell.assignMaterial();
         createFigure();
     }
@@ -52,39 +52,41 @@ public class Engine implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-
-        switch (event.getCode()){
-            case RIGHT:
-                currentFigure.translate(Rotate.X_AXIS, - Main.BOX_DIMENSION, drawWell);
-                break;
-            case LEFT:
-                currentFigure.translate(Rotate.X_AXIS, Main.BOX_DIMENSION, drawWell);
-                break;
-            case UP:
-                currentFigure.translate(Rotate.Y_AXIS, - Main.BOX_DIMENSION, drawWell);
-                break;
-            case DOWN:
-                currentFigure.translate(Rotate.Y_AXIS, Main.BOX_DIMENSION, drawWell);
-                break;
-            case V:
-                currentFigure.rotate(Rotate.Z_AXIS, 90, drawWell);
-                break;
-            case F:
-                currentFigure.rotate(Rotate.Z_AXIS, -90, drawWell);
-                break;
-            case B:
-                currentFigure.rotate(Rotate.X_AXIS, 90, drawWell);
-                break;
-            case G:
-                currentFigure.rotate(Rotate.X_AXIS, -90, drawWell);
-                break;
-            case N:
-                currentFigure.rotate(Rotate.Y_AXIS, 90, drawWell);
-                break;
-            case H:
-                currentFigure.rotate(Rotate.Y_AXIS, -90, drawWell);
-                break;
+        if (!drawWell.isTheEnd()) {
+            switch (event.getCode()){
+                case RIGHT:
+                    currentFigure.translate(Rotate.X_AXIS, - Main.BOX_DIMENSION, drawWell);
+                    break;
+                case LEFT:
+                    currentFigure.translate(Rotate.X_AXIS, Main.BOX_DIMENSION, drawWell);
+                    break;
+                case UP:
+                    currentFigure.translate(Rotate.Y_AXIS, - Main.BOX_DIMENSION, drawWell);
+                    break;
+                case DOWN:
+                    currentFigure.translate(Rotate.Y_AXIS, Main.BOX_DIMENSION, drawWell);
+                    break;
+                case V:
+                    currentFigure.rotate(Rotate.Z_AXIS, 90, drawWell);
+                    break;
+                case F:
+                    currentFigure.rotate(Rotate.Z_AXIS, -90, drawWell);
+                    break;
+                case B:
+                    currentFigure.rotate(Rotate.X_AXIS, 90, drawWell);
+                    break;
+                case G:
+                    currentFigure.rotate(Rotate.X_AXIS, -90, drawWell);
+                    break;
+                case N:
+                    currentFigure.rotate(Rotate.Y_AXIS, 90, drawWell);
+                    break;
+                case H:
+                    currentFigure.rotate(Rotate.Y_AXIS, -90, drawWell);
+                    break;
+            }
         }
+
     }
 
 
@@ -95,6 +97,10 @@ public class Engine implements EventHandler<KeyEvent> {
                     drawWell.addFigure(currentFigure);
                     currentFigure = null;
                     resetChildren();
+                    if (drawWell.isTheEnd()){
+                        state = State.THE_END;
+                        break;
+                    }
                     List<Integer> filledLevels = drawWell.getFilledLevels();
                     if (filledLevels.isEmpty())
                         createFigure();
@@ -112,6 +118,8 @@ public class Engine implements EventHandler<KeyEvent> {
 
                 break;
             case LEVELS_REDUCTION:
+                break;
+            case THE_END:
                 break;
         }
     }

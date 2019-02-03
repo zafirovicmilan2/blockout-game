@@ -22,17 +22,20 @@ public class DrawWell extends Group {
     private Material matLevel[];
     private Frame frame;
     private double boxDimension;
+    private double boxNumZ;
+    private boolean theEnd;
 
-    public DrawWell(double boxDimension, int boxNumX, int boxNumY, int boxNumZ, Material[] matLevel) {
+    public DrawWell(double boxDimension, int boxNumX, int boxNumY, int boxNumZ, int boxNumExtZ, Material[] matLevel) {
 
+        this.boxNumZ = boxNumZ;
         this.boxDimension = boxDimension;
         this.matLevel = matLevel; // TODO 1)update material setting, 2)check if boxNumZ==len(matLevel)
 
-        frame = new Frame(boxDimension, boxNumX, boxNumY, boxNumZ);
+        frame = new Frame(boxDimension, boxNumX, boxNumY, boxNumZ+boxNumExtZ);
         getChildren().add(frame);
         levels = new ArrayList<>();
         double tz = 0;
-        for (int i = 0; i < boxNumZ; i++) {
+        for (int i = 0; i < boxNumZ+boxNumExtZ; i++) {
             Level level = new Level(boxDimension, boxNumX, boxNumY);
             level.setTranslateZ(level.getTranslateZ() + tz);
             level.setMaterial(this.matLevel[i]);
@@ -64,7 +67,8 @@ public class DrawWell extends Group {
      * make the box(with this indexes) visible
      */
     public void setVisible(Coordinates<Integer> coordinates){
-        // TODO check index out of bounds
+        if (coordinates.getI() >= boxNumZ)
+            theEnd = true;
         levels.get(coordinates.getI()).setVisible(coordinates.getJ(),coordinates.getK());
     }
 
@@ -149,5 +153,9 @@ public class DrawWell extends Group {
             setVisible(getIndexes(Geometry.getMiddlePointInScene(figure.getBoxes()[i])));
         }
         assignMaterial();
+    }
+
+    public boolean isTheEnd() {
+        return theEnd;
     }
 }
