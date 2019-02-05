@@ -3,7 +3,10 @@ package draw_well;
 import geometry.Geometry;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -22,6 +25,8 @@ public class Figure extends Group {
         this.boxDimension = boxDimension;
         boxes = new Box[numOfBoxes];
         boxes[0] = new Box(boxDimension, boxDimension, boxDimension);  // TODO potential problem: this is not placed at (0,0,0)
+        boxes[0].setDrawMode(DrawMode.LINE);
+        boxes[0].setMaterial(new PhongMaterial(Color.BLACK));
         int index = 1;
         loop: while(index != numOfBoxes){
 
@@ -36,7 +41,8 @@ public class Figure extends Group {
             for (int i = 0; i < index; i++)
                 if(Geometry.haveSameBoundsInParent(boxes[i], newBox))
                     continue loop;
-
+            newBox.setDrawMode(DrawMode.LINE);
+            newBox.setMaterial(new PhongMaterial(Color.BLACK));
             boxes[index++] = newBox;
         }
 
