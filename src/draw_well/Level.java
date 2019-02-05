@@ -54,7 +54,7 @@ public class Level extends Group {
      * Set visibility for just one box
      */
     public void setVisible(int i, int j){
-        if(i>=0 && j>=0 && i<boxNumX &&  j<boxNumY)
+        if(i>=0 && j>=0 && i<boxNumY &&  j<boxNumX)
             if(!boxes[i][j].isVisible()){
                 boxes[i][j].setVisible(true);
                 ++visibleBoxesCnt;

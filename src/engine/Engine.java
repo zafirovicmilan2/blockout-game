@@ -28,7 +28,7 @@ public class Engine implements EventHandler<KeyEvent> {
 
     public Engine() {
         group = new Group();
-        scene = new Scene(group, 700, 300,true);
+        scene = new Scene(group, 800, 500,true);
         scene.setOnKeyPressed(this);
         camera = new Camera(scene);
         PhongMaterial[] materials = new PhongMaterial[Main.BOX_NUM_Z + Main.BOX_NUM_EXT_Z];

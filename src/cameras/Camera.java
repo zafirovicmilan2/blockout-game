@@ -35,7 +35,7 @@ public class Camera {
         defaultCamera.setNearClip(0.1);
         defaultCamera.setFarClip(5000);
         defaultCamera.getTransforms().add(t);
-        defaultCamera.setTranslateZ(2.0 * Main.BOX_DIMENSION * (Main.BOX_NUM_X + Main.BOX_NUM_EXT_Z));
+        defaultCamera.setTranslateZ(1.8 * Main.BOX_DIMENSION * (Main.BOX_NUM_X + Main.BOX_NUM_EXT_Z));
         defaultCamera.setTranslateX(Main.BOX_DIMENSION * Main.BOX_NUM_X / 2);
         defaultCamera.setTranslateY(Main.BOX_DIMENSION * Main.BOX_NUM_Y / 2);
     }

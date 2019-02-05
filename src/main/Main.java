@@ -12,11 +12,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static final double BOX_DIMENSION = 20;
-    public static final int BOX_NUM_X = 4;
-    public static final int BOX_NUM_Y = 4;
+    public static final int BOX_NUM_X = 6;
+    public static final int BOX_NUM_Y = 5;
     public static final int BOX_NUM_Z = 4;
-    public static final int BOX_NUM_EXT_Z = 3;
-    public static final int BOX_NUM_IN_FIGURE = 2;
+    public static final int BOX_NUM_EXT_Z = 4;
+    public static final int BOX_NUM_IN_FIGURE = 3;
 
     public static void main(String[] args) {
         launch(args);
@@ -28,8 +28,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         engine = new Engine();
-        primaryStage.setTitle("Svemirci");
+        primaryStage.setTitle("Bunar");
         primaryStage.setScene(engine.getScene());
+        primaryStage.setResizable(false);
         primaryStage.show();
 
         new AnimationTimer() {
