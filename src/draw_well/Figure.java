@@ -24,13 +24,13 @@ public class Figure extends Group {
     public Figure(double boxDimension, int numOfBoxes) {
         this.boxDimension = boxDimension;
         boxes = new Box[numOfBoxes];
-        boxes[0] = new Box(boxDimension, boxDimension, boxDimension);  // TODO potential problem: this is not placed at (0,0,0)
+        boxes[0] = new Box(boxDimension, boxDimension, boxDimension);
         boxes[0].setDrawMode(DrawMode.LINE);
         boxes[0].setMaterial(new PhongMaterial(Color.BLACK));
         int index = 1;
         loop: while(index != numOfBoxes){
 
-            Box newBox = new Box(boxDimension, boxDimension, boxDimension);  // TODO potential problem: this is not placed at (0,0,0)
+            Box newBox = new Box(boxDimension, boxDimension, boxDimension);
             Point3D randomTranslation = getRandomTranslation();
             Point3D base = Geometry.getLowerLeftPointInParent(boxes[randomGenerator.nextInt(index)]);  // box that newBox will be added to
             Geometry.positionToZero(newBox);

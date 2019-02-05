@@ -29,7 +29,7 @@ public class DrawWell extends Group {
 
         this.boxNumZ = boxNumZ;
         this.boxDimension = boxDimension;
-        this.matLevel = matLevel; // TODO 1)update material setting, 2)check if boxNumZ==len(matLevel)
+        this.matLevel = matLevel;
 
         frame = new Frame(boxDimension, boxNumX, boxNumY, boxNumZ+boxNumExtZ);
         getChildren().add(frame);
@@ -49,7 +49,6 @@ public class DrawWell extends Group {
      * @return indexes of a box that the point(x,y,z) belongs to
      */
     public Coordinates<Integer> getIndexes(double x, double y, double z){
-        // TODO check if the point is inside draw-well
         int i = (int)(z/boxDimension);
         int j = (int)(y/boxDimension);
         int k = (int)(x/boxDimension);
@@ -91,7 +90,6 @@ public class DrawWell extends Group {
 
         Level removed = levels.remove(levelIndex);
         removed.setInvisible();
-        //move removed level to the top; TODO check if this must be done after ParallelTransition
         removed.setTranslateZ(removed.getTranslateZ() + boxDimension * (getHeightBoxesNum() - levelIndex));
         levels.add(removed);
 
