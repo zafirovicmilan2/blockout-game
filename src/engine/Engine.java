@@ -7,6 +7,7 @@ import geometry.Geometry;
 import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -14,6 +15,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.transform.Rotate;
 import main.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -26,8 +28,10 @@ public class Engine implements EventHandler<KeyEvent> {
     private State state = State.FIGURE_FALLING;
     private Scene scene;
     private Camera camera;
+    private List<PointLight> lights;
 
     public Engine() {
+        createLights();
         group = new Group();
         scene = new Scene(group, 800, 500,true);
         scene.setOnKeyPressed(this);
@@ -55,9 +59,27 @@ public class Engine implements EventHandler<KeyEvent> {
         resetChildren();
     }
 
+    public void createLights(){
+        lights = new ArrayList<>();
+        PointLight p1 = new PointLight(Color.RED);
+        PointLight p2 = new PointLight(Color.GHOSTWHITE);
+        p2.setTranslateX(Main.BOX_DIMENSION * Main.BOX_NUM_X / 2);
+        p2.setTranslateY(Main.BOX_DIMENSION * Main.BOX_NUM_Y / 2);
+        p2.setTranslateZ(Main.BOX_DIMENSION * (Main.BOX_NUM_Z + Main.BOX_NUM_EXT_Z));
+        PointLight p3 = new PointLight(Color.BLUE);
+        p3.setTranslateX(Main.BOX_DIMENSION * Main.BOX_NUM_X);
+        p3.setTranslateY(Main.BOX_DIMENSION * Main.BOX_NUM_Y);
+        lights.add(p1);
+        lights.add(p2);
+        lights.add(p3);
+    }
+
     private void resetChildren(){
         group.getChildren().clear();
         group.getChildren().add(drawWell);
+        for (int i = 0; i < lights.size(); i++) {
+            group.getChildren().add(lights.get(i));
+        }
         if (currentFigure != null)
             group.getChildren().add(currentFigure);
     }
