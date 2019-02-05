@@ -15,6 +15,7 @@ import javafx.scene.transform.Rotate;
 import main.Main;
 
 import java.util.List;
+import java.util.Random;
 
 public class Engine implements EventHandler<KeyEvent> {
 
@@ -46,7 +47,7 @@ public class Engine implements EventHandler<KeyEvent> {
     }
 
     public void createFigure(){
-        currentFigure = new Figure(Main.BOX_DIMENSION, Main.BOX_NUM_IN_FIGURE);
+        currentFigure = new Figure(Main.BOX_DIMENSION, 1+(new Random().nextInt(Main.BOX_NUM_IN_FIGURE - 1)));
         Geometry.positionToZero(currentFigure);
         currentFigure.setTranslateX(currentFigure.getTranslateX() + Main.BOX_DIMENSION);
         currentFigure.setTranslateY(currentFigure.getTranslateY() + Main.BOX_DIMENSION);

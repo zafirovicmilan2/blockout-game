@@ -14,9 +14,9 @@ public class Main extends Application {
     public static final double BOX_DIMENSION = 20;
     public static final int BOX_NUM_X = 6;
     public static final int BOX_NUM_Y = 5;
-    public static final int BOX_NUM_Z = 4;
-    public static final int BOX_NUM_EXT_Z = 4;
-    public static final int BOX_NUM_IN_FIGURE = 3;
+    public static final int BOX_NUM_Z = 5;
+    public static final int BOX_NUM_EXT_Z = 5;
+    public static final int BOX_NUM_IN_FIGURE = 4;
 
     public static void main(String[] args) {
         launch(args);
